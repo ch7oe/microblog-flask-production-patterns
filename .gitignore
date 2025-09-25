@@ -6,4 +6,6 @@ secrets.sh
 notes*
 .flaskenv
 config.py
+app.db
+
 
