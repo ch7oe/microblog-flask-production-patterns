@@ -27,13 +27,12 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("Please use different username.")
         
     def validate_email(self, email):
-        user = db.session.scalar(sa.selec(User).where(User.email == email.data))
+        user = db.session.scalar(sa.select(User).where(User.email == email.data))
         if user is not None:
             raise ValidationError("Please use a different email address.")
         
 
 class EditProfileForm(FlaskForm):
-    username = StringField("Username", validator=[DataRequired()])
+    username = StringField("Username", validators=[DataRequired()])
     about_me = TextAreaField("About Me", validators=[Length(min=0, max=140)])
     submit = SubmitField("Submit")
-        
