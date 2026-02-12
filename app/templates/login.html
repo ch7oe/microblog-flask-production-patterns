@@ -3,9 +3,11 @@
 {% block content %}
 <h1>Sign In</h1>
 <form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
+    {{ form.hidden_tag() }} 
     <p>
-        {{ form.username.label }}<br>
+        <!-- field label -->
+        {{ form.username.label }}<br> 
+        <!-- actual field. where HTML attributes can be passed as arguments -->
         {{ form.username(size=32) }}
         {% for error in form.username.errors %}
         <span style="color:red;">[{{ error }}]</span>
