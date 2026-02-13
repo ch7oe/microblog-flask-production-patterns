@@ -31,12 +31,12 @@ class User(UserMixin, db.Model):
 
     posts: so.WriteOnlyMapped["Post"] = so.relationship(back_populates="author") # WriteOnlyMapped defines posts as a collection type of Post objects inside 
 
-    following: so.WriteOnlyMapped["User"] = so.relationship(
+    following: so.WriteOnlyMapped["User"] = so.relationship( # user is the follower
         secondary=followers, primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
         back_populates="followers" 
     )
-    followers: so.WriteOnlyMapped["User"] = so.relationship(
+    followers: so.WriteOnlyMapped["User"] = so.relationship( # user is being followed
         secondary=followers, primaryjoin=(followers.c.followed_id == id),
         secondaryjoin=(followers.c.follower_id == id),
         back_populates="following"
@@ -78,6 +78,21 @@ class User(UserMixin, db.Model):
             self.following.select().subquery()
         )
         return db.session.scalar(query)
+    
+    def following_posts(self): # posts of users self.id is following + self.id's own posts
+        Author = so.aliased(User) # authors of posts
+        Follower = so.aliased(User) # users as followers of other users
+        return (
+            sa.select(Post)
+            .join(Post.author.of_type(Author)) # combining posts with their authors
+            .join(Author.followers.of_type(Follower), isouter=True)
+            .where(sa.or_(
+                Follower.id == self.id,
+                Author.id == self.id,
+            ))
+            .group_by(Post)
+            .order_by(Post.timestamp.desc())
+        )
 
 
 class Post(db.Model):
