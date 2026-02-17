@@ -79,7 +79,7 @@ class User(UserMixin, db.Model):
         )
         return db.session.scalar(query)
     
-    def following_posts(self): # posts of users self.id is following + self.id's own posts
+    def following_posts(self): # posts of users self.id is following + self.id's own posts          
         Author = so.aliased(User) # authors of posts
         Follower = so.aliased(User) # users as followers of other users
         return (
