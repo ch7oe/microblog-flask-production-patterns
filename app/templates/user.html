@@ -23,7 +23,7 @@
                 <!-- user viewing a user that is currently followed => "Unfollow" -->
                 {% else %}
                 <p>
-                    <form action="{{ url_for('unfollow',username=user.username) }}" method="post">
+                    <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
                         {{ form.hidden_tag() }}
                         {{ form.submit(value="Unfollow") }}
                     </form>
