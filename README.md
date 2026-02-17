@@ -11,7 +11,6 @@ This repository is a structured learning implementation used to deeply understan
 
 The goal of this repository is to:
 
-- Move beyond “toy Flask apps”
 - Understand real production architecture patterns
 - Practice clean separation of concerns
 - Learn how data flows through a properly structured Flask application
