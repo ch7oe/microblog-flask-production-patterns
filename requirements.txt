@@ -2,14 +2,17 @@ aiosmtpd==1.4.6
 alembic==1.16.5
 atpublic==6.0.2
 attrs==25.3.0
+babel==2.18.0
 blinker==1.9.0
 click==8.3.0
 dnspython==2.8.0
 email-validator==2.3.0
 Flask==3.1.2
+flask-babel==4.0.0
 Flask-Login==0.6.3
 Flask-Mail==0.10.0
 Flask-Migrate==4.1.0
+Flask-Moment==1.0.6
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.2
 greenlet==3.2.4
@@ -21,6 +24,7 @@ MarkupSafe==3.0.2
 packaging==26.0
 PyJWT==2.11.0
 python-dotenv==1.1.1
+pytz==2026.1.post1
 SQLAlchemy==2.0.43
 tomli==2.2.1
 typing_extensions==4.15.0
