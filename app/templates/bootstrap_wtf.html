@@ -54,7 +54,7 @@
     {%- if action != None %} action="{{ action }}"{% endif -%}
     {%- if method %} method="{{ method }}"{% endif %}
     {%- if id %} id="{{ id }}"{% endif -%}
-    {%- if novalidate %} novalidate{% endif -%}>>
+    {%- if novalidate %} novalidate{% endif -%}>
     {{ form.hidden_tag() }}
     {%- for field, errors in form.errors.items() %}
         {%- if form[field].widget.input_type == 'hidden' %}
