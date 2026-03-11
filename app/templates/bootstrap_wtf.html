@@ -63,5 +63,13 @@
             {%- endfor %}
         {%- endif %}
     {%- endfor %}
+
+    {% set ns = namespace(first_field=true) %}
+    {%- for field in form %}
+        {% if field.widget.input_type != 'hidden' -%}
+            {{ form_field(field, ns.first_field) }}
+            {% set ns.first_field = false %}
+        {%- endif %}
+    {%- endfor %}
 </form>
 {% endmacro %}
