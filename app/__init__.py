@@ -12,8 +12,8 @@ from flask_babel import Babel, lazy_gettext as _l
 
 # find best language by comparing client provided weights vs. languages application supports
 def get_locale():
-    # return request.accept_languages.best_match(app.config["LANGUAGES"])
-    return "es"
+    return request.accept_languages.best_match(app.config["LANGUAGES"])
+
 
 
 app = Flask(__name__)
