@@ -23,7 +23,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
-login.login_view = "login" # let Flask-Login know which view function handles logins
+login.login_view = "auth.login" # let Flask-Login know which view function handles logins
 login.login_message = _l("Please log in to access this page.")
 mail = Mail(app)
 moment = Moment(app)
@@ -31,6 +31,9 @@ babel = Babel(app, locale_selector=get_locale)
 
 from app.errors import bp as errors_bp
 app.register_blueprint(errors_bp)
+
+from app.errors import bp as auth_bp
+app.register_blueprint(auth_bp, url_prefix="/auth") # any routes defined in blueprint get this prefix (e.g., http://localhost:5000/auth/login)
 
 
 if not app.debug: 
