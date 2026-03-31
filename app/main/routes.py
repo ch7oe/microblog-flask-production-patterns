@@ -1,10 +1,11 @@
 from datetime import datetime, timezone
-from flask import render_template, flash, redirect, url_for, request, g
+from flask import render_template, flash, redirect, url_for, request, g, \
+    current_app
 from flask_login import current_user, login_user, login_required
 from flask_babel import _, get_locale
 import sqlalchemy as sa
 from langdetect import detect, LangDetectException
-from app import app, db
+from app import db
 from app.main.forms import EditProfileForm, EmptyForm, PostForm
 from app.models import User, Post
 from app.translate import translate
@@ -38,7 +39,7 @@ def index():
     
     page = request.args.get("page", 1, type=int)
     posts = db.paginate(current_user.following_posts(), page=page, 
-                        per_page=app.config["POSTS_PER_PAGE"],
+                        per_page=current_app.config["POSTS_PER_PAGE"],
                         error_out=False)
     
     next_url = url_for("main.index", page=posts.next_num) \
@@ -55,7 +56,7 @@ def explore():
     """Display explore page with all posts from users ordered newest to oldest."""
     page = request.args.get("page", 1, type=int)
     query = sa.select(Post).order_by(Post.timestamp.desc())
-    posts = db.paginate(query, page=page, per_page=app.config["POSTS_PER_PAGE"],
+    posts = db.paginate(query, page=page, per_page=current_app.config["POSTS_PER_PAGE"],
                         error_out=False)
     
     next_url = url_for("main.explore", page=posts.next_num) \
@@ -76,7 +77,7 @@ def user(username):
     page = request.args.get("page", 1, type=int)
     query = user.posts.select().order_by(Post.timestamp.desc())
     posts = db.paginate(query, page=page,
-                        per_page=app.config["POSTS_PER_PAGE"],
+                        per_page=current_app.config["POSTS_PER_PAGE"],
                         error_out=False
     )
 
