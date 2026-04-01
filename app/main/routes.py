@@ -92,7 +92,7 @@ def user(username):
                            next_url=next_url, prev_url=prev_url, form=form)
 
 
-@bp.route("/edit_profile", method=["GET", "POST"])
+@bp.route("/edit_profile", methods=["GET", "POST"])
 @login_required
 def edit_profile():
     """Display page to edit profile."""
