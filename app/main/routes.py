@@ -170,7 +170,7 @@ def translate_text():
     return {
         "text": translate(
             data["text"],
-            data["source_langauge"],
+            data["source_language"],
             data["dest_language"]
         )
     }
